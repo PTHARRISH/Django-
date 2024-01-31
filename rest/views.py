@@ -15,13 +15,30 @@ def index(request):
     }
     return Response(course)
 
-@api_view(['GET','POST','PUT']) 
+@api_view(['GET','POST']) 
 def index2(request):
     course={
         'course_name':'Python',
         'frameworks':['flask','Django']
     }
     return Response(course)
+
+# @api_view(['GET']) # "Hit by GET method" printed
+# @api_view(['POST']) # "Hit by POST method" when ever pass the post method before Method Not Allowed: /api/hit/
+@api_view(['GET','POST']) # Method Not Allowed: /api/hit/ to avoid the error you need to pass GET method also in POST
+def hit(request):
+    if request.method=="GET":
+        print(request.GET.get('search'))#search to display the name
+        print('You Hit a GET Method')
+        return Response("Hit by GET method")
+    elif request.method=="POST":
+        data=request.data
+        #get the data 
+        # from the postman and change the method to post and click raw and click plaintext to json 
+        # type the data and click send
+        print(data['name'])#get the data key
+        print('You Hit a POST Method')
+        return Response("Hit by POST method")
 
 # Get api
 # GET - when we get some data from the database get the method

@@ -25,10 +25,10 @@ def index2(request):
 
 # @api_view(['GET']) # "Hit by GET method" printed
 # @api_view(['POST']) # "Hit by POST method" when ever pass the post method before Method Not Allowed: /api/hit/
-@api_view(['GET','POST']) # Method Not Allowed: /api/hit/ to avoid the error you need to pass GET method also in POST
+# @api_view(['GET','POST']) # Method Not Allowed: /api/hit/ to avoid the error you need to pass GET method also in POST
+@api_view(['PUT']) # "Hit by PUT method" when ever pass the put method before Method Not Allowed: /api/hit/
 def hit(request):
     if request.method=="GET":
-        print(request.GET.get('search'))#search to display the name
         print('You Hit a GET Method')
         return Response("Hit by GET method")
     elif request.method=="POST":
@@ -39,6 +39,11 @@ def hit(request):
         print(data['name'])#get the data key
         print('You Hit a POST Method')
         return Response("Hit by POST method")
+    elif request.method=="PUT":
+        data=request.data # {"name":"Harrish"}
+        print(data['name']) # Harrish
+        print('You Hit a PUT Method')
+        return Response("Hit by PUT method")
 
 # Get api
 # GET - when we get some data from the database get the method
@@ -47,3 +52,5 @@ def hit(request):
 # This error message means that you are trying to use the GET method to access a view that does not support it. 
 # The GET method is typically used to retrieve data from the server, 
 # while the POST method is used to create or update data on the server
+
+

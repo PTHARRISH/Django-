@@ -6,7 +6,6 @@ from .models import User
 def display(request):
    if request.method=='POST':
       pass
-      
    return render(request,'display.html',{})
 
 def add_data(request):

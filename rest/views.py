@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from rest_framework.decorators import api_view
 # @api view - convert a function into api view json drf response
 from rest_framework.response import Response
@@ -71,5 +72,35 @@ def get_post(request):
 
 
 
-# @api_view(['GET','PUT','PATCH','DELETE'])
-# def crud(request):
+@api_view(['GET','PUT','PATCH','DELETE'])
+def crud(request,id1):
+    try:
+        user_details=user.objects.get(id=id1)
+    except user.DoesNotExist:
+        return HttpResponse(id1+' is Not founded')
+    if request.method=="GET":
+        serials=user_serials(user_details)
+        return Response(serials.data)
+    elif request.method=="PUT":
+        data=request.data
+        serials=user_serials(user_details,data=data)
+        if serials.is_valid():
+            serials.save()
+            return Response(serials.data)
+    elif request.method=="PATCH":
+        data=request.data
+        serials=user_serials(user_details,data=data,partial=True)
+        if serials.is_valid():
+            serials.save()
+            return Response(serials.data)
+    elif request.method=="DELETE":
+        user_details=user.objects.get(id=id1)
+        user_details.delete()
+        return HttpResponse(id1+' is Deleted')
+
+
+
+
+        
+
+

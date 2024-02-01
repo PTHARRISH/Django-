@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 # @api view - convert a function into api view json drf response
 from rest_framework.response import Response
+from .models import user
+from .serializer import user_serials
 # Create your views here.
 
 
@@ -52,5 +54,22 @@ def hit(request):
 # This error message means that you are trying to use the GET method to access a view that does not support it. 
 # The GET method is typically used to retrieve data from the server, 
 # while the POST method is used to create or update data on the server
+@api_view(['GET','POST'])
+def get_post(request):
+    if request.method=="GET":
+        user_details=user.objects.all()
+        serials=user_serials(user_details,many=True)
+        return Response(serials.data) 
+    elif request.method=="POST":
+        data=request.data
+        serials=user_serials(data=data)
+        if serials.is_valid():
+            serials.save()
+            return Response(serials.data)
+    
+        
 
 
+
+# @api_view(['GET','PUT','PATCH','DELETE'])
+# def crud(request):

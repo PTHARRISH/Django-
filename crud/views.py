@@ -27,8 +27,8 @@ def update(request,pk):
    else:
       form=Userform(instance=m)
       return render(request,'add_data.html',{'form':form})
-
-
-
-
-
+   
+def delete(request,pk):
+   m=User.objects.get(id=pk)
+   m.delete()
+   return redirect("/display")

@@ -72,7 +72,7 @@ def get_post(request):
 
 
 
-@api_view(['GET','PUT','PATCH','DELETE'])
+@api_view(['GET','PUT','PATCH',"POST",'DELETE'])
 def crud(request,id1):
     try:
         user_details=user.objects.get(id=id1)
@@ -81,6 +81,12 @@ def crud(request,id1):
     if request.method=="GET":
         serials=user_serials(user_details)
         return Response(serials.data)
+    elif request.method=="POST":
+        data=request.data
+        serials=user_serials(data=data)
+        if serials.is_valid():
+            serials.save()
+            return Response(serials.data)
     elif request.method=="PUT":
         data=request.data
         serials=user_serials(user_details,data=data)
@@ -102,5 +108,11 @@ def crud(request,id1):
 
 
         
-
-
+@api_view(['GET','PUT','PATCH','DELETE','POST'])
+def person(request):
+    # try:
+    #     data=request.data
+    #     user_details=user.objects.get(id=data['id'])
+    # except user.DoesNotExist:
+    #     return HttpResponse(data[id]' is Not founded')
+    

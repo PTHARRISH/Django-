@@ -70,8 +70,7 @@ def get_post(request):
     
         
 
-
-
+# CRUD using ID
 @api_view(['GET','PUT','PATCH',"POST",'DELETE'])
 def crud(request,id1):
     try:
@@ -107,6 +106,7 @@ def crud(request,id1):
 
 
 
+# Postman CRUD 
         
 @api_view(['GET','PUT','PATCH','DELETE','POST'])
 def person(request):
@@ -115,4 +115,33 @@ def person(request):
     #     user_details=user.objects.get(id=data['id'])
     # except user.DoesNotExist:
     #     return HttpResponse(data[id]' is Not founded')
-    
+    if request.method=="GET":
+        objs=user.objects.all()
+        serials=user_serials(objs,many=True)
+        return Response(serials.data)
+    elif request.method=="POST":
+        data=request.data
+        serials=user_serials(data=data)
+        if serials.is_valid():
+            serials.save()
+            return Response(serials.data)
+    elif request.method=="PUT":
+        data=request.data
+        serials=user_serials(data=data)
+        if serials.is_valid():
+            serials.save()
+            return Response(serials.data)
+    elif request.method=="PATCH":
+        data=request.data
+        objs=user.objects.get(id=data['id'])
+        serials=user_serials(objs,data=data,partial=True)
+        if serials.is_valid():
+            serials.save()
+            return Response(serials.data)
+    elif request.method=="DELETE":
+        data=request.data
+        objs=user.objects.get(id=data['id'])
+        objs.delete()
+        return HttpResponse(id+' is Deleted')
+
+

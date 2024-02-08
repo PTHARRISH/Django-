@@ -6,7 +6,10 @@ class user_serials(serializers.ModelSerializer):
         model=user
         fields="__all__"
 
-    def validate(self,data):
-        if data['age']<18:
-            raise serializers.ValidationError('age should be greater than 18')
+def validate(self, data):
+        if 'age' in data:
+            try:
+                data['age'] = int(data['age'])
+            except ValueError:
+                raise serializers.ValidationError('Age must be an integer')
         return data

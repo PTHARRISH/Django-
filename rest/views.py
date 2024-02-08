@@ -28,8 +28,8 @@ def index2(request):
 
 # @api_view(['GET']) # "Hit by GET method" printed
 # @api_view(['POST']) # "Hit by POST method" when ever pass the post method before Method Not Allowed: /api/hit/
-# @api_view(['GET','POST']) # Method Not Allowed: /api/hit/ to avoid the error you need to pass GET method also in POST
-@api_view(['PUT']) # "Hit by PUT method" when ever pass the put method before Method Not Allowed: /api/hit/
+@api_view(['GET','POST']) # Method Not Allowed: /api/hit/ to avoid the error you need to pass GET method also in POST
+# @api_view(['PUT']) # "Hit by PUT method" when ever pass the put method before Method Not Allowed: /api/hit/
 def hit(request):
     if request.method=="GET":
         print('You Hit a GET Method')

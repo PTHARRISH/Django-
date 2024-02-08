@@ -3,6 +3,7 @@ from .forms import Userform
 from .models import User
 
 # Create your views here.
+
 def display(request):
    m=User.objects.all() 
    return render(request,'display.html',{'form':m})

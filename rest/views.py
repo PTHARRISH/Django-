@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from rest_framework.decorators import api_view
 # @api view - convert a function into api view json drf response
 from rest_framework.response import Response
-from .models import user
-from .serializer import user_serials
+from .models import User
+from .serializer import User_serials
 # Create your views here.
 
 
@@ -58,12 +58,12 @@ def hit(request):
 @api_view(['GET','POST'])
 def get_post(request):
     if request.method=="GET":
-        user_details=user.objects.all()
-        serials=user_serials(user_details,many=True)
+        user_details=User.objects.all()
+        serials=User_serials(user_details,many=True)
         return Response(serials.data) 
     elif request.method=="POST":
         data=request.data
-        serials=user_serials(data=data)
+        serials=User_serials(data=data)
         if serials.is_valid():
             serials.save()
             return Response(serials.data)
@@ -74,32 +74,32 @@ def get_post(request):
 @api_view(['GET','PUT','PATCH',"POST",'DELETE'])
 def crud(request,id1):
     try:
-        user_details=user.objects.get(id=id1)
-    except user.DoesNotExist:
+        user_details=User.objects.get(id=id1)
+    except User.DoesNotExist:
         return HttpResponse(id1+' is Not founded')
     if request.method=="GET":
-        serials=user_serials(user_details)
+        serials=User_serials(user_details)
         return Response(serials.data)
     elif request.method=="POST":
         data=request.data
-        serials=user_serials(data=data)
+        serials=User_serials(data=data)
         if serials.is_valid():
             serials.save()
             return Response(serials.data)
     elif request.method=="PUT":
         data=request.data
-        serials=user_serials(user_details,data=data)
+        serials=User_serials(user_details,data=data)
         if serials.is_valid():
             serials.save()
             return Response(serials.data)
     elif request.method=="PATCH":
         data=request.data
-        serials=user_serials(user_details,data=data,partial=True)
+        serials=User_serials(user_details,data=data,partial=True)
         if serials.is_valid():
             serials.save()
             return Response(serials.data)
     elif request.method=="DELETE":
-        user_details=user.objects.get(id=id1)
+        user_details=User.objects.get(id=id1)
         user_details.delete()
         return HttpResponse(id1+' is Deleted')
 
@@ -116,32 +116,33 @@ def person(request):
     # except user.DoesNotExist:
     #     return HttpResponse(data[id]' is Not founded')
     if request.method=="GET":
-        objs=user.objects.all()
-        serials=user_serials(objs,many=True)
+        objs=User.objects.all()
+        serials=User_serials(objs,many=True)
         return Response(serials.data)
     elif request.method=="POST":
         data=request.data
-        serials=user_serials(data=data)
+        serials=User_serials(data=data)
         if serials.is_valid():
             serials.save()
             return Response(serials.data)
     elif request.method=="PUT":
         data=request.data
-        serials=user_serials(data=data)
+        objs=User.objects.get(id=data['id'])
+        serials=User_serials(objs,data=data)
         if serials.is_valid():
             serials.save()
             return Response(serials.data)
     elif request.method=="PATCH":
         data=request.data
-        objs=user.objects.get(id=data['id'])
-        serials=user_serials(objs,data=data,partial=True)
+        objs=User.objects.get(id=data['id'])
+        serials=User_serials(objs,data=data,partial=True)
         if serials.is_valid():
             serials.save()
             return Response(serials.data)
     elif request.method=="DELETE":
         data=request.data
-        objs=user.objects.get(id=data['id'])
+        objs=User.objects.get(id=data['id'])
         objs.delete()
-        return HttpResponse(id+' is Deleted')
+        return Response('Id is Deleted')
 
 

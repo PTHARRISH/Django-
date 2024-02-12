@@ -107,3 +107,9 @@
 #             "color_name": "Green"
 #         }
 #   }
+
+# Instead of we using the depth=1 we create the color serializer and call the the user to call it
+# class User_serials(serializers.ModelSerializer):
+#   color=Color_serials()
+
+# Now we use this serializer and call the color serializer to get the color_name and print its color on it. 

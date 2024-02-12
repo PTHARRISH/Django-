@@ -116,7 +116,8 @@ def person(request):
     # except user.DoesNotExist:
     #     return HttpResponse(data[id]' is Not founded')
     if request.method=="GET":
-        objs=User.objects.all()
+        objs=User.objects.filter(color__isnull=False)
+        # objs=User.objects.all()
         serials=User_serials(objs,many=True)
         return Response(serials.data)
     elif request.method=="POST":

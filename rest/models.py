@@ -1,6 +1,6 @@
 from django.db import models
 
-#harrishpt
+# harrishpt
 # admin@123
 # Create your models here.
 class Color(models.Model):

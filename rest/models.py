@@ -14,8 +14,7 @@ class User(models.Model):
     user = models.CharField(max_length=30)
     password = models.CharField(max_length=10)
     color=models.ForeignKey(Color,null=True,blank=True,on_delete=models.CASCADE)
-    # null and blank is true because we already created data after now add new field it show some error
-    # to avoid the error and we will add null and blank true it will all the previous color field is allotted True
+    
 
     def __str__(self):
         return "%s" % (self.name)

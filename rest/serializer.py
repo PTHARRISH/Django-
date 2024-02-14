@@ -36,11 +36,14 @@ class User_serials(serializers.ModelSerializer):
     
     def get_pin(self,obj):
         return "svk"
-
+    
+    # to validate the special character
     def validate(self,data):
         special_chars="!@#$%^&*()_+=-|\":><?/.,;'][{|}]"
-        if any (c in special_chars for c in data["name"]):
+        print(data["name"])
+        if any (c in special_chars for c in data['name']):
             raise serializers.ValidationError('Name cannot contain Special Characters')
+        return data
 
 
 

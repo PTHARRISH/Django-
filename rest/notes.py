@@ -112,4 +112,8 @@
 # class User_serials(serializers.ModelSerializer):
 #   color=Color_serials()
 
-# Now we use this serializer and call the color serializer to get the color_name and print its color on it. 
+# Now we use this serializer and call the color serializer to get the color_name and print its color on it.
+
+# method serializer fields in django method
+# Instead OF Adding country fields directly into the model fields   
+# create the 

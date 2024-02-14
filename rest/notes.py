@@ -116,4 +116,17 @@
 
 # method serializer fields in django method
 # Instead OF Adding country fields directly into the model fields   
-# create the 
+# create the method serializer
+
+
+
+# # Error :AssertionError at /api/person/
+# The `.create()` method does not support writable nested fields by default.
+# Write an explicit `.create()` method for serializer `rest.serializer.User_serials`, or set `read_only=True` on nested serializer fields.
+# To create a nested serializer, you need to do two things:
+
+# Define the nested serializer class, such as ProfileSerializer, and specify its model and fields.
+# Use the nested serializer class as a field in the parent serializer class, such as UserSerializer, 
+# and specify the source attribute to indicate the related model field.
+# For example, if you have a User model that has a one-to-one relation with a Profile model, 
+# you can define the serializers 

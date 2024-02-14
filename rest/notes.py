@@ -117,8 +117,14 @@
 # method serializer fields in django method
 # Instead OF Adding country fields directly into the model fields   
 # create the method serializer
+# If you use Serializermethod you need to create the method name (get_methodserializerfieldname) 
+
+# In color_code method
+# We call the object and we geth obj=current object("id": 1),(color.id is color class id to call the color id ).
+# color_oj is store id colors fields
 
 
+#  when you want to write all the functionality custom then we use this serializer
 
 # # Error :AssertionError at /api/person/
 # The `.create()` method does not support writable nested fields by default.

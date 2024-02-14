@@ -1,6 +1,11 @@
 from .models import User,Color
 from rest_framework import serializers
 
+class LoginSerializer(serializers.Serializer):
+    user=serializers.CharField()
+    password=serializers.CharField()
+
+
 # color class
 class Color_serials(serializers.ModelSerializer):
     class Meta:
@@ -44,6 +49,5 @@ class User_serials(serializers.ModelSerializer):
         if any (c in special_chars for c in data['name']):
             raise serializers.ValidationError('Name cannot contain Special Characters')
         return data
-
 
 
